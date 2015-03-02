@@ -4,18 +4,51 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 
 
-public class MainActivity extends ActionBarActivity {
-// TODO Drawing view for signature
+public class MainActivity extends ActionBarActivity  {
+
 // TODO Buttons for change pin, forgot pin
 
+    private Button login;
+    private Button clear;
+
+    private DrawingView dv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.password);
+        dv = (DrawingView) findViewById(R.id.drawview);
+        setButtons();
+        setButtonText();
+    }
 
+    private void setButtons() {
+
+        login = (Button) findViewById(R.id.login);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//            TODO: Call the authentication method from here
+            }
+        });
+
+        clear = (Button)findViewById(R.id.clear);
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//            This clears the canvas for reuse
+            dv.clearCanvas();
+            }
+        });
+
+    }
+
+    private void setButtonText() {
+        login.setText("Login");
+        clear.setText("Clear");
     }
 
 
