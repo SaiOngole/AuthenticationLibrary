@@ -10,7 +10,9 @@ import android.widget.Button;
 
 public class MainActivity extends ActionBarActivity  {
 
-// TODO Buttons for change pin, forgot pin
+// TODO: Buttons for change pin, forgot pin
+// TODO: Add a fallback mechanism
+
 
     private Button login;
     private Button clear;
