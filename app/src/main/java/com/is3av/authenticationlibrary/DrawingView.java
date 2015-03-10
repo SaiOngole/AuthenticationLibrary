@@ -21,6 +21,18 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
+
 public class DrawingView extends View {
     private Paint       mPaint;
     public int width;
@@ -32,15 +44,15 @@ public class DrawingView extends View {
     Context context;
     private Paint circlePaint;
     private Path circlePath;
-    private int counter=0;
-    private int digit=0;
+    private static String algorithm = "AES";
+    static SecretKey yourKey = null;
     ArrayList<Float> pressureList = new ArrayList<Float>();
     ArrayList<Float> sizeList = new ArrayList<Float>();
     ArrayList<Float> xCo = new ArrayList<Float>();
     ArrayList<Float> yCo = new ArrayList<Float>();
     ArrayList<Long> timeStamp = new ArrayList<Long>();
     String root = android.os.Environment.getExternalStorageDirectory().toString();
-    File mydir = new File(root+"/digit");
+    File mydir = new File(root+"/authentication");
 
     public int custom;
 
@@ -203,14 +215,13 @@ public class DrawingView extends View {
     }
     public void saveCanvas() throws FileNotFoundException {
 
-        String filename = "-"+ counter + "-" + digit+".txt";
+        String filename = "password"+".txt";
         File mydir1 = new File(mydir+File.separator);
         mydir1.mkdirs();
         Log.d("location",mydir1.toString());
         File file = new File(mydir1+File.separator+filename);
         Log.d("file path",file.toString());
         try {
-            counter++;
             FileWriter writer = new FileWriter(file);
             writer.append("X-Coordinates"+"\n");
             writer.append(xCo.toString());
@@ -228,10 +239,7 @@ public class DrawingView extends View {
             writer.append(timeStamp.toString());
             writer.flush();
             writer.close();
-            if(counter%10==0) {
-                digit++;
-                counter=0;
-            }
+            // call encode method here
         } catch (IOException e) {
             System.out.println("File not created");
             // TODO Auto-generated catch block
@@ -246,4 +254,50 @@ public class DrawingView extends View {
         //Call async task
     }
 
+    public static SecretKey generateKey(char[] passphraseOrPin, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        // Number of PBKDF2 hardening rounds to use. Larger values increase computation time
+         final int iterations = 1000;
+
+        // Generate a 256-bit key
+        final int outputKeyLength = 256;
+
+        SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+        KeySpec keySpec = new PBEKeySpec(passphraseOrPin, salt, iterations, outputKeyLength);
+        SecretKey secretKey = secretKeyFactory.generateSecret(keySpec);
+        return secretKey;
+    }
+
+    public static SecretKey generateKey() throws NoSuchAlgorithmException {
+        // Generate a 256-bit key
+        final int outputKeyLength = 256;
+        SecureRandom secureRandom = new SecureRandom();
+        // Do *not* seed secureRandom! Automatically seeded from system entropy.
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+        keyGenerator.init(outputKeyLength, secureRandom);
+        yourKey = keyGenerator.generateKey();
+        return yourKey;
+    }
+
+    public static byte[] encodeFile(SecretKey yourKey, byte[] fileData)
+            throws Exception {
+        byte[] encrypted = null;
+        byte[] data = yourKey.getEncoded();
+        SecretKeySpec skeySpec = new SecretKeySpec(data, 0, data.length,
+                algorithm);
+        Cipher cipher = Cipher.getInstance(algorithm);
+        cipher.init(Cipher.ENCRYPT_MODE, skeySpec, new IvParameterSpec(
+                new byte[cipher.getBlockSize()]));
+        encrypted = cipher.doFinal(fileData);
+        return encrypted;
+    }
+
+    public static byte[] decodeFile(SecretKey yourKey, byte[] fileData)
+            throws Exception {
+        byte[] decrypted = null;
+        Cipher cipher = Cipher.getInstance(algorithm);
+        cipher.init(Cipher.DECRYPT_MODE, yourKey, new IvParameterSpec(
+                new byte[cipher.getBlockSize()]));
+        decrypted = cipher.doFinal(fileData);
+        return decrypted;
+    }
 }
