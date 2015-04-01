@@ -95,17 +95,6 @@ public class DrawingView extends View {
 
 
     }
-    /*public void colorSet(int bit) {
-        if(bit==0) {
-            System.out.println("Bit is "+bit);
-            custom = Color.GREEN;
-
-        }
-        else {
-            System.out.println("Bit is "+bit);
-            custom = Color.BLACK;
-        }
-    } */
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);

@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ResetActivity"
+            android:label="@string/title_activity_reset" >
+        </activity>
     </application>
 
 </manifest>

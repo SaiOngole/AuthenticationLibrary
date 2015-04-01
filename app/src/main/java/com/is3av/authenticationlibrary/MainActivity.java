@@ -1,11 +1,14 @@
 package com.is3av.authenticationlibrary;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import java.io.FileNotFoundException;
 
 
 public class MainActivity extends ActionBarActivity  {
@@ -34,6 +37,13 @@ public class MainActivity extends ActionBarActivity  {
             @Override
             public void onClick(View v) {
 //            TODO: Call the authentication method from here
+                // saving the pressure, size and other parameters for now
+                try {
+                    dv.saveCanvas();
+                }
+                catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -70,6 +80,12 @@ public class MainActivity extends ActionBarActivity  {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        if(id == R.id.reset) {
+            Intent intent = new Intent(this,ResetActivity.class);
+            startActivity(intent);
             return true;
         }
 
