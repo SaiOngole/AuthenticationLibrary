@@ -15,7 +15,8 @@ public class MainActivity extends ActionBarActivity  {
 
 // TODO: Buttons for change pin, forgot pin
 // TODO: Add a fallback mechanism
-
+// TODO: Add keypad pin screen
+// TODO: Include the authentication jar
 
     private Button login;
     private Button clear;
