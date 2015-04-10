@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/lib/com.google.ads"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#c0000000"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/ll_change_status"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10.0dip"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/start_service"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.0"
+            android:clickable="false"
+            android:text="start_protect" />
+
+        <!--  <CheckBox
+            android:id="@+id/protect_status"
+            android:layout_width="180.0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20.0dip"
+            android:layout_weight="1.0"
+            android:clickable="false"
+            android:text="@string/service_status_started" /> -->
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_set_app_lock"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10.0dip"
+        android:text="bt_set_app_lock" />
+
+    <Button
+        android:id="@+id/bt_reset_password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10.0dip"
+        android:text="bt_reset_password" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10.0dip"
+        android:text="readme" />
+
+</LinearLayout>

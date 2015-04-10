@@ -25,7 +25,8 @@ public class MainActivity extends ActionBarActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.password);
+//        setContentView(R.layout.password);
+        setContentView(R.layout.app_lock_password);
         dv = (DrawingView) findViewById(R.id.drawview);
         setButtons();
         setButtonText();
