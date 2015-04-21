@@ -2,13 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.is3av.authenticationlibrary" >
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.read_external_storage"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".MainAuthentication"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,11 +20,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ResetActivity"
+            android:name=".TrainingActivity"
             android:label="@string/title_activity_reset" >
         </activity>
         <activity
-            android:name=".MainAuthentication"
+            android:name=".MainActivity"
             android:label="@string/title_activity_main_authentication" >
         </activity>
     </application>

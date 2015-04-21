@@ -1,17 +1,37 @@
 package com.is3av.authenticationlibrary;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import java.io.File;
 
 
 public class MainAuthentication extends ActionBarActivity {
 
+    String root = android.os.Environment.getExternalStorageDirectory().toString();
+    File mydir = new File(root+"/authentication");
+    String filename = "authentication.txt";
+    String path = mydir + File.separator + filename;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_authentication);
+
+        boolean exists = (new File(path)).exists();
+
+        if(!exists) {
+            File file = new File(mydir+File.separator+filename);
+            Toast.makeText(this,"Taking you to the training screen", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(MainAuthentication.this, TrainingActivity.class);
+            startActivity(intent);
+        }
+        else {
+            setContentView(R.layout.activity_main_authentication);
+        }
+
     }
 
 

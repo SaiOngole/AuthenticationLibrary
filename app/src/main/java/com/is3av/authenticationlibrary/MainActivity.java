@@ -86,7 +86,7 @@ public class MainActivity extends ActionBarActivity  {
         }
 
         if(id == R.id.reset) {
-            Intent intent = new Intent(this,ResetActivity.class);
+            Intent intent = new Intent(this,TrainingActivity.class);
             startActivity(intent);
             return true;
         }
