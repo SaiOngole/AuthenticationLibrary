@@ -20,6 +20,10 @@
             android:name=".ResetActivity"
             android:label="@string/title_activity_reset" >
         </activity>
+        <activity
+            android:name=".MainAuthentication"
+            android:label="@string/title_activity_main_authentication" >
+        </activity>
     </application>
 
 </manifest>
